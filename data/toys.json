@@ -1,0 +1,123 @@
+[
+  {
+    "_id": "t101",
+    "name": "Talking Doll",
+    "price": 123,
+    "labels": [
+      "Doll",
+      "Battery Powered",
+      "Baby"
+    ],
+    "createdAt": 1631031801011,
+    "inStock": true
+  },
+  {
+    "_id": "t102",
+    "name": "Remote Control Toy",
+    "price": 89,
+    "labels": [
+      "On wheels",
+      "Battery Powered",
+      "Outdoor"
+    ],
+    "createdAt": 1631131802022,
+    "inStock": true
+  },
+  {
+    "_id": "t103",
+    "name": "Monopoly",
+    "price": 45,
+    "labels": [
+      "Box game",
+      "Puzzle"
+    ],
+    "createdAt": 1631231803033,
+    "inStock": false
+  },
+  {
+    "_id": "t104",
+    "name": "Baby Einstein Activity Gym",
+    "price": 0,
+    "labels": [
+      "Baby",
+      "Art"
+    ],
+    "createdAt": 1631331804044,
+    "inStock": true
+  },
+  {
+    "_id": "t105",
+    "name": "Outdoor Ride-On Tractor",
+    "price": 199,
+    "labels": [
+      "On wheels",
+      "Outdoor",
+      "Battery Powered"
+    ],
+    "createdAt": 1631431805055,
+    "inStock": true
+  },
+  {
+    "_id": "t106",
+    "name": "3D Wooden Puzzle",
+    "price": 35,
+    "labels": [
+      "Puzzle",
+      "Box game",
+      "Art"
+    ],
+    "createdAt": 1631531806066,
+    "inStock": false
+  },
+  {
+    "_id": "t107",
+    "name": "Princess Fashion Doll",
+    "price": 52,
+    "labels": [
+      "Doll",
+      "Art"
+    ],
+    "createdAt": 1631631807077,
+    "inStock": true
+  },
+  {
+    "_id": "t108",
+    "name": "Baby Sensory Blocks",
+    "price": 29,
+    "labels": [
+      "Baby",
+      "Box game"
+    ],
+    "createdAt": 1631731808088,
+    "inStock": true
+  },
+  {
+    "_id": "t109",
+    "name": "RC Flying Drone",
+    "price": 150,
+    "labels": [
+      "Battery Powered",
+      "Outdoor"
+    ],
+    "createdAt": 1631831809099,
+    "inStock": false
+  },
+  {
+    "_id": "t110",
+    "name": "Drawing Art Set",
+    "price": 60,
+    "labels": [
+      "Art",
+      "Box game"
+    ],
+    "createdAt": 1631931810100,
+    "inStock": true
+  },
+  {
+    "name": "dd",
+    "price": 4344,
+    "_id": "k3CyZ",
+    "createdAt": 1745170038924,
+    "inStock": true
+  }
+]
