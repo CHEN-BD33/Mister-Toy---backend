@@ -1,4 +1,5 @@
-import fs from 'fs'
+// import fs from 'fs'
+import { promises as fs } from 'fs'
 
 export const loggerService = {
     debug(...args) {
@@ -17,9 +18,15 @@ export const loggerService = {
 
 const logsDir = './logs'
 
-if (!fs.existsSync(logsDir)) {
-    fs.mkdirSync(logsDir)
+async function initLogsDir() {
+    try {
+        await fs.mkdir(logsDir, { recursive: true })
+    } catch (err) {
+        console.log('FATAL: cannot create logs directory', err)
+    }
 }
+
+initLogsDir()
 
 //define the time format
 function getTime() {
@@ -31,16 +38,17 @@ function isError(e) {
     return e && e.stack && e.message
 }
 
-function doLog(level, ...args) {
 
+async function doLog(level, ...args) {
     const strs = args.map(arg =>
         (typeof arg === 'string' || isError(arg)) ? arg : JSON.stringify(arg)
     )
-    var line = strs.join(' | ')
-    line = `${getTime()} - ${level} - ${line}\n`
+    const line = `${getTime()} - ${level} - ${strs.join(' | ')}\n`
     console.log(line)
 
-    fs.appendFile(`${logsDir}/backend.log`, line, (err) =>{
-        if (err) console.log('FATAL: cannot write to log file')
-    })
+    try {
+        await fs.appendFile(`${logsDir}/backend.log`, line)
+    } catch (err) {
+        console.log('FATAL: cannot write to log file', err)
+    }
 }
