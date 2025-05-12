@@ -21,7 +21,7 @@ const corsOptions = {
 
         'http://127.0.0.1:5174',
         'http://localhost:5174',
-        
+
         'http://127.0.0.1:3000',
         'http://localhost:3000',
     ],
@@ -33,82 +33,81 @@ app.use(cors(corsOptions))
 // Express Routing:
 
 // REST API for Toys
-app.get('/api/toy', (req, res) => {
-    const filterBy = {
-        txt: req.query.txt || '',
-        inStock: req.query.inStock || undefined,
-        maxPrice: +req.query.maxPrice || 0,
-        labels: req.query.labels || [],
-        pageIdx: req.query.pageIdx || undefined,
-        sortBy: req.query.sortBy || '',
-        sortDir: req.query.sortDir || 1 
+app.get('/api/toy', async (req, res) => {
+    try {
+        const filterBy = {
+            txt: req.query.txt || '',
+            inStock: req.query.inStock || undefined,
+            maxPrice: +req.query.maxPrice || 0,
+            labels: req.query.labels || [],
+            pageIdx: req.query.pageIdx || undefined,
+            sortBy: req.query.sortBy || '',
+            sortDir: req.query.sortDir || 1
+        }
+        const toys = await toyService.query(filterBy)
+        res.send(toys)
+    } catch (err) {
+        loggerService.error('Cannot get toys', err)
+        res.status(400).send('Cannot get toys')
     }
-    toyService.query(filterBy)
-        .then(toys => res.send(toys))
-        .catch(err => {
-            loggerService.error('Cannot get toys', err)
-            res.status(400).send('Cannot get toys')
-        })
 })
 
-app.get('/api/toy/:toyId', (req, res) => {
-    const { toyId } = req.params
-
-    toyService.getById(toyId)
-        .then(toy => res.send(toy))
-        .catch(err => {
-            loggerService.error('Cannot get toy', err)
-            res.status(400).send('Cannot get toy')
-        })
+app.get('/api/toy/:toyId', async (req, res) => {
+    try {
+        const { toyId } = req.params
+        const toys = await toyService.getById(toyId)
+        res.send(toy)
+    } catch (err) {
+        loggerService.error('Cannot get toy', err)
+        res.status(400).send('Cannot get toy')
+    }
 })
 
-app.post('/api/toy', (req, res) => {
+app.post('/api/toy', async (req, res) => {
     // const loggedinUser = userService.validateToken(req.cookies.loginToken)
     // if (!loggedinUser) return res.status(401).send('Cannot add toy')
-
-    const toy = {
-        name: req.body.name,
-        price: +req.body.price,
+    try {
+        const toy = {
+            name: req.body.name,
+            price: +req.body.price,
+        }
+        const savedToy = await toyService.save(toy)
+        res.send(savedToy)
+    } catch (err) {
+        loggerService.error('Cannot save toy', err)
+        res.status(400).send('Cannot save toy')
     }
-    // loggedinUser
-    toyService.save(toy)
-        .then(savedToy => res.send(savedToy))
-        .catch(err => {
-            loggerService.error('Cannot save toy', err)
-            res.status(400).send('Cannot save toy')
-        })
 })
 
-app.put('/api/toy/:id', (req, res) => {
+
+
+app.put('/api/toy/:id', async (req, res) => {
     // const loggedinUser = userService.validateToken(req.cookies.loginToken)
     // if (!loggedinUser) return res.status(401).send('Cannot update toy')
-
-    const toy = {
-        _id: req.params.id,
-        name: req.body.name,
-        price: +req.body.price,
+    try {
+        const toy = {
+            _id: req.params.id,
+            name: req.body.name,
+            price: +req.body.price,
+        }
+        const savedToy = await toyService.save(toy)
+    } catch (err) {
+        loggerService.error('Cannot save toy', err)
+        res.status(400).send('Cannot save toy')
     }
-    // loggedinUser
-    toyService.save(toy)
-        .then(savedToy => res.send(savedToy))
-        .catch(err => {
-            loggerService.error('Cannot save toy', err)
-            res.status(400).send('Cannot save toy')
-        })
 })
 
-app.delete('/api/toy/:toyId', (req, res) => {
+app.delete('/api/toy/:toyId', async (req, res) => {
     // const loggedinUser = userService.validateToken(req.cookies.loginToken)
     // if (!loggedinUser) return res.status(401).send('Cannot remove toy')
-
-    const { toyId } = req.params
-    // loggedinUser
-    toyService.remove(toyId)
-        .then(() => res.send('Removed!'))
-        .catch(err => {
-            loggerService.error('Cannot remove toy', err)
-            res.status(400).send('Cannot remove toy')
-        })
+    try {
+        const { toyId } = req.params
+        await toyService.remove(toyId)
+        res.send('Removed!')
+    } catch (err) {
+        loggerService.error('Cannot remove toy', err)
+        res.status(400).send('Cannot remove toy')
+    }
 })
 
 // User API
